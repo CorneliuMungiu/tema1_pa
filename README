@@ -1,0 +1,101 @@
+Walsh:
+    In clasa Walsh am creat o nouta clasa Pairs care are 2 variabile , x si
+    y, coordonatele citite de la input. Din fisier se citeste:
+    n-dimensiunea matricei n x n
+    k-numarul de perechi
+    pairs- vector de perechi x,y
+
+    Functia denied primeste ca parametru 1 sau 0, si intoarce !n
+
+    Functia getResult primeste ca parametru n,x,y si Wn(valoare de inceput).
+    Aceasta compara x si y cu halfN care e jumate din dimensiunea matricei.
+    Deoarece n poate fi doar putere a lui 2, halfN mereu va fi intreg.
+    Matricea este impartita in 4 cadrane recursiv atat timp cat aceasta nu 
+    este de dimensiune 1x1. Pentru a afla in ce cadran se afla coordonatele,
+    sunt folosite 4 if-uri, si in dependenta in care cadran se afla coordonatele,
+    functia se apeleaza recursiv cu valorile noi. De fiecare data cand coordonatele 
+    sunt gasite in cadranul 4, negam Wn. La final functia returneaza ultima valoare 
+    a lui Wn.
+
+Statistics:
+    Functia frequency primeste ca parametru o litera si un array de Stringuri si 
+    returneaza un array de Integer, unde pe pozitia i se va afla frecventa aparitiei
+    literei in cuvantul i din array-ul de stringuri. Numarul va fi pozitiv daca litera
+    va fi dominanta , si negativ in caz contrar deoarece de fiecare data cand 
+    intalneste o litera diferita se decrementeaza counterul, iar cand gaseste litera
+    potrivita incrementeaza counterul. 
+
+    Functia logestConcatenatedStr primeste ca input un array de stringuri si retuneaza
+    un int(numarul maxim de cuvinte care concatenate au o litera dominanta).Pentru 
+    aceasta apeleaza functia frequency cu fiecare litera din alfabet, sorteaza 
+    descrescator array-ul de intregi returnat si aduna la sum elemente din array
+    atat timp cat suma este pozitiva(exista o litera dominanta) concomitent
+    incrementand un counter(cuurent) care reprezinta numarul de stringuri concatenate
+    care au litera "i" dominanta. Compara mereu la sfarsit current cu max, unde max 
+    este numarul de stinguri concatenate pentru literele precedente sau 0 initial.
+    La sfarsit returneaza max care este si raspunsul problemei- numarul maxim de 
+    subsiruri concatenate care au o litera dominanta.
+
+Prinel:
+    Functia checkPerfectSquare primeste un int si returneaza un boolean, True in
+    caz ca numarul este partat perfect si False in caz contrar.
+
+    Functia getDivisors primeste ca parametru un int si returneaza un LinkedList de
+    intregi. Am folosit LinkedList pentru a sorta crescator lista in timp ce se 
+    gaseste un nou divizor. Unul dintre cei mai optimizati algoritmi de gasire a 
+    tuturor divizorilor unui numar este de a merge pana la radical din n, iar daca
+    n se imparte fara rest la i, atunci acesta sigur se va imparte si la n/i, astfel
+    gasim 2 divizori concomitent. Acest algoritm are o conditie de verificare, daca
+    n/i != i, (ex. 100/10 = 10 ; 100 / 10 = 10 atat i cat si n/i este 10, deci ar trebui 
+    sa il adaugam doar o singura data). Pentru a optimiza algoritmul, am facut
+    un checkPerfectSquare, iar in caz ca numarul este patrat perfect for-ul merge pana
+    la sqrt(n) - 1, si la final adaug sqrt(n). De asemenea pe masura ce gasesc un nou
+    divizor, divizorul cel mai mic se adauga intr-un linkedList la final pe cand 
+    divizorul mai mare se adauga la inceputul altui linkedlist, astfel la sfarsit cand
+    le concateneaza se obtine o lista sortata crescator.
+
+    Functia getBestSteps primeste ca parametru un ArrayList deja alocat si un int n.
+    Aceasta functie salveaza pe pozitia i al arrayListul-ui in cati pasi minim poti 
+    ajunge la numarul i adunand de fiecare data doar divizorii numarului la care ai 
+    ajuns. Deoarece la numarul i pote ajunge in maxim i - 1 pasi, initializeaza 
+    arrayList-ul pentru i cu i-1. Logica algoritmului este ca pornim de la cateva 
+    valori cunoscute cu ajutorul carora afla celelalte valori. Stiind ca la 1
+    ajung in 0 pasi, la 2 voi ajunge in cati pasi am ajuns pana la 1 plus inca un pas.
+    Astfel stiind ca la 6 ajung in 3 pasi, pot spune ca la 6+6,6+3,6+2,6+1 pot ajunge 
+    in 3+1 pasi, desigur modificand valoarea de la pozitia i doar in cazul ca am gasit
+    un numar mai mic de pasi. Deci stiind ca la i ajung in k pasi, la i + fiecareDivizor
+    va ajunge in k+1 pasi si va modifica valoarea de acolo doar daca k+1 va fi mai
+    mic decat numarul de la pozitia i+divizor. Daca i+divizor depaseste numarul maxim
+    de elemente din arrayList, da break la for-ul care parcuge divizorii, intrucat
+    acestea sunt sortati crescator, si daca i + divizor[i] > n si 
+    divizor[i]>divizor[i+1] atunci si i + divizor[i+1] va fi > n.
+
+    Functia initStepVec aloca vectorul pe care il trimite ca parametru functiei
+    getBestSteps si initializeaza stepVec in dependenta de valorile returnate de
+    functia getBestSteps. Array-ul stepVec va pastra pe pozitia i numarul minim de 
+    pasi necesari de a ajunge la target[i].
+
+    Functia knapSack este problema rucsacului. Pentru inceput initializeaza array-ul
+    res cu 0 de dimensiune k+1, apoi parcurge vectorul (StepVec) care in problema
+    rucsacului joaca rol de masa obiectului(kg), apoi parcurge in acel for array-ul
+    res de la drepta spre stanga, de fiecare data facand maximum dintre res[j] si
+    pretul obiectului cost[i] + res[j - stepVec[i]]. In final returneaza valoarea
+    de pe pozitia k din array-ul res. M-am inspirat dupa ultimul algoritm de pe
+    https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/ , care are complexitatea
+    O(n * k).
+
+Crypto:
+    Functia cntDistinc returneaza numarul caracterelor (distincte) din substring.
+
+    Functia getResult creeaza un vector dp care pe pozitia substring.lenght va
+    pastra rezultatul final.Dupa asta parcurge stringul key caracter cu caracter si
+    comparaca key[i] cu fiecare caracter din substring(de la dreapta la stanga, iar
+    daca gaseste caractere egale, atunci :dp[j + 1] = (dp[j + 1] + dp[j]) % mod, in
+    caz contrar ca key[i] nu este caracter dar e '?' , atunci parcurge din nou
+    fiecare element din substring si dp[j] = (distinctCharacters * dp[j] % mod + dp[j - 1]) % mod;
+    iar dp[0] = distinctCharacters * dp[0] % mod. In final returneaza numarul stocat
+    pe pozitia substring[length].
+
+
+
+
